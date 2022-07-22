@@ -22,3 +22,8 @@ if (process.env.NODE_ENV==='development') {
 
   console.log('the app is in production phase ')
 }
+
+const port=process.env.PORT
+app.listen(port, ()=>{
+  console.log(`Server Running On Port: ${port}`)
+})
