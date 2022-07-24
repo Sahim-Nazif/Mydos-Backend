@@ -2,6 +2,7 @@ const express = require('express')
 const app=express()
 const morgan=require('morgan')
 const mongoose=require('mongoose')
+const mydoRoute=require('./routes/mydo')
 require ('dotenv').config()
 
 //db connection
@@ -27,3 +28,11 @@ const port=process.env.PORT
 app.listen(port, ()=>{
   console.log(`Server Running On Port: ${port}`)
 })
+
+
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
+
+//routes
+app.use('/', mydoRoute)
