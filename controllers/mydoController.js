@@ -15,6 +15,15 @@ const create_mydos=async(req, res)=>{
 
 const delete_by_id=(req, res, next, id) =>{
 
+    Mydos.findById(id)
+    
+             .exec((error, mydos)=>{
+            if (error || ! mydos) {
+                return res.status(400).json({error:'We cannot find dos'})
+            }
+            req.mydos=mydos
+            next()
+          })
     
 }
 
@@ -32,5 +41,6 @@ const delete_mydos=(req, res)=>{
 
 module.exports={
     create_mydos,
-    delete_mydos
+    delete_mydos,
+    delete_by_id
 }
