@@ -4,6 +4,9 @@ const morgan=require('morgan')
 const mongoose=require('mongoose')
 const mydoRoute=require('./routes/mydo')
 require ('dotenv').config()
+const cors=require('cors')
+
+
 
 //db connection
 mongoose
@@ -32,7 +35,8 @@ app.listen(port, ()=>{
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(cors())
 
 
 //routes
-app.use('/', mydoRoute)
+app.use('/api', mydoRoute)

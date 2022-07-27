@@ -1,4 +1,3 @@
-
 const Mydos=require('../models/mydos')
 
 
@@ -60,12 +59,12 @@ const delete_mydos=(req, res)=>{
 
 }
 
-const update_mydos=(req, res)=>{
+const update_mydos=async(req, res)=>{
 
     const mydo=req.mydos 
     mydo.todo=req.body.todo
 
-    mydo.save((err, mydos)=>{
+    await mydo.save((err, mydos)=>{
 
         if (err){
             return res.status(400).json({error:' Sorry we could not update your do'})
