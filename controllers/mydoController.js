@@ -1,17 +1,33 @@
 const Mydos=require('../models/mydos')
+const formidable= require('formidable')
 
+const create_mydos=(req, res)=>{
 
-const create_mydos=async(req, res)=>{
+    const form= new formidable.IncomingForm()
 
-    const mydos= new Mydos(req.body)
-
-    await mydos.save((error, data)=>{
-
-        if (error) {
-            return res.status(400).json({error:'Sorry to do could not be saved!'})
+    form.keepExtensions=true
+    form.parse(req, (err, field)=>{
+        if (err) {
+            return res.status(400).json({error:'Something went wrong'})
         }
-        res.json(data)
+        const mydos=new Mydos(field)
+
+        mydos.save((err, result)=>{
+            if (err){
+                return res.status(400).json({error:err})
+            }
+            return res.json(result)
+        })
     })
+    // const mydos= new Mydos(req.body)
+
+    // await mydos.save((error, data)=>{
+
+    //     if (error) {
+    //         return res.status(400).json(error)
+    //     }
+    //     res.json(data)
+    // })
 }
 
 
@@ -39,7 +55,7 @@ const get_byId=(req, res, next, id) =>{
     
              .exec((error, mydos)=>{
             if (error || ! mydos) {
-                return res.status(400).json({error:'We cannot find dos'})
+                return res.status(400).json(error)
             }
             req.mydos=mydos
             next()

@@ -5,7 +5,7 @@ const mongoose=require('mongoose')
 const mydoRoute=require('./routes/mydo')
 require ('dotenv').config()
 const cors=require('cors')
-
+const bodyParser= require('body-parser')
 
 
 //db connection
@@ -35,6 +35,7 @@ app.listen(port, ()=>{
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors())
 
 
